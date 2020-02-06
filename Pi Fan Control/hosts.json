@@ -3,6 +3,7 @@
 	{
 		"hostname" : "pihole",
 		"address" : " ff",
-		"last report" : "12/12/2019"
+		"last report" : "12/12/2019",
+		"temperature" : "5 F"
 	}
 }
