@@ -65,9 +65,12 @@ def update(ip, time, temp):
         __saveFile()
         return True
     else:
-        return False
+        return False 
+
+
 def info():
+    info = []
     for host in __host_file:
-        info.append((host["hostname"],host["temperature"],host["last report"]))
+        info.append((__host_file[host]["hostname"], __host_file[host]["temperature"], __host_file[host]["last report"]))
     return info
     

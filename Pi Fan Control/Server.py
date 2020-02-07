@@ -30,7 +30,7 @@ def get_ip():
 
 
 __HOST = get_ip()
-__PORT = "34289"
+__PORT = 34289
 localAddrPi = (__HOST, __PORT)
 localAddr = (__HOST, 80)
 
@@ -70,8 +70,10 @@ class DataHandler(socketserver.BaseRequestHandler):
 class HTTPHandler(socketserver.BaseRequestHandler):
 
     def handle(self):
-        self.request.send(self.page())
-        self.server.close()
+        print("Running")
+        print("Connection")
+        self.request.send(self.page().encode("utf-8"))
+#        self.server.close()
         return
 
     def page(self): 
@@ -95,13 +97,12 @@ class HTTPHandler(socketserver.BaseRequestHandler):
 
 
 def start():
-    server = socketserver.TCPServer(localAddrPi, DataHandler)
-    t = threading.Thread(target=server.serve_forever())
-    t.setDaemon(True)
-    t.start()
+    # server = socketserver.TCPServer(localAddrPi, DataHandler)
+    # t = threading.Thread(target=server.serve_forever())
+    # t.setDaemon(True)
+    # t.start()
     show = socketserver.TCPServer(localAddr, HTTPHandler)
     ts = threading.Thread(target=show.serve_forever())
     ts.setDaemon(True)
     ts.start()
-    
-    
+    print("Starting") 
