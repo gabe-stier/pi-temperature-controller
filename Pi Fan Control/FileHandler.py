@@ -91,6 +91,6 @@ def getTempAvg():
             temp += __host_file[host]["temperature"] 
             count += 1
         if count is not 0:
-            return int(temp / count)
+            return float(temp / count)
         else: 
             return 0

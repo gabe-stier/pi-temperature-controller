@@ -3,7 +3,6 @@ Created on Feb 7, 2020
 
 @author: gabez
 '''
-# coding: utf-8
 import socketserver
 import threading
 
@@ -17,11 +16,10 @@ class HTTPHandler(socketserver.BaseRequestHandler):
 
     def handle(self):
         self.request.send(self.page().encode("utf-8"))
-#        self.server.close()
         return
 
     def page(self): 
-        html = """<html><head><title>Pi Temperatures</title></head>
+        html = """<html><head><meta http-equiv="refresh" content="300" ><title>Pi Temperatures</title></head>
                     <table>
                         <tr>
                             <th>Host Name</th>
@@ -31,11 +29,11 @@ class HTTPHandler(socketserver.BaseRequestHandler):
         for host in info():
             html += """ <tr>
                             <td>""" + str(host[0]) + """</td>
-                            <td>""" + str(host[1]) +"""&degF</td>
+                            <td>""" + "{0:.2f}".format(host[1]) +"""&degF</td>
                             <td>""" + str(host[2]) + """</td>
                         </tr>""" 
         html += """</table>
-                    <br> <div>Average Temperature: """ + str(getTempAvg())  + """&degF</div>
+                    <br> <div>Average Temperature: """ + "{0:.2f}".format(getTempAvg())  + """&degF</div><div>Updated time: <script> var today = new Date();var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();var dateTime = date+' '+time; document.write(dateTime)</script>
                         <style>table, th, td { border: 1px solid black; text-align: center;}</style>
                     </html>"""
         return html

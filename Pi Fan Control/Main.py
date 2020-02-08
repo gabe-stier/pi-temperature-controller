@@ -5,7 +5,7 @@ Created on Feb 6, 2020
 '''
 from multiprocessing import Pool
 import os
-from socket import socket
+import socket
 
 
 def get_ip():
@@ -24,7 +24,8 @@ def run(process):
     os.system('python {}'.format(process))
 
 
-__HOST = '127.0.0.1'
+# __HOST = "192.168.0.14"
+__HOST = get_ip()
 
 
 class Main():
