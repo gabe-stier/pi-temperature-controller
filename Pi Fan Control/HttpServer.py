@@ -3,15 +3,17 @@ Created on Feb 7, 2020
 
 @author: gabez
 '''
+# coding: utf-8
 import socketserver
-from FileHandler import info
-from Main import __HOST
 import threading
+
+from FileHandler import info, getTempAvg
+from Main import __HOST
 
 localAddr = (__HOST, 80)
 
-class HTTPHandler(socketserver.BaseRequestHandler):
 
+class HTTPHandler(socketserver.BaseRequestHandler):
 
     def handle(self):
         self.request.send(self.page().encode("utf-8"))
@@ -28,12 +30,13 @@ class HTTPHandler(socketserver.BaseRequestHandler):
                         </tr>"""
         for host in info():
             html += """ <tr>
-                            <td>""" + host[0] + """</td>
-                            <td>""" + host[1] + """</td>
-                            <td>""" + host[2] + """</td>
+                            <td>""" + str(host[0]) + """</td>
+                            <td>""" + str(host[1]) +"""&degF</td>
+                            <td>""" + str(host[2]) + """</td>
                         </tr>""" 
         html += """</table>
-                        <style>table, th, td { border: 1px solid black;}</style>
+                    <br> <div>Average Temperature: """ + str(getTempAvg())  + """&degF</div>
+                        <style>table, th, td { border: 1px solid black; text-align: center;}</style>
                     </html>"""
         return html
     

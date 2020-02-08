@@ -15,6 +15,7 @@ import threading
 from FileHandler import *
 from Main import __HOST
 
+
 __PORT = 34289
 localAddrPi = (__HOST, __PORT)
 
@@ -26,7 +27,7 @@ class DataHandler(socketserver.BaseRequestHandler):
         addr = self.client_address
         ip = addr[0]
         info = json.loads(str(data))
-        print(data)
+#         print(data)
         if(str(ip) == info["data"]["address"] ): # and self.__checkHash(info["data"]["date"], info["data"]["checksum"], info["data"]["code"])):
             hostname = info["data"]["hostname"]
             temp = info["data"]["temperature"]

@@ -6,8 +6,6 @@ Created on Feb 6, 2020
 from datetime import datetime as __datetime
 import json
 
-# __json_fileR = open("hosts.json", "r")
-
 
 def getHostName(ip):
     with open("hosts.json", "r") as __json_fileR:
@@ -41,7 +39,7 @@ def setHostName(ip, hostname):
         __host_file = json.load(__json_fileR)
         if str(ip) in __host_file:
             if not checkHostName(ip, hostname):
-                __host_file[str(ip)]["name"] = hostname
+                __host_file[str(ip)]["hostname"] = hostname
                 __saveFile(__host_file)
                 return True
         else:
@@ -77,8 +75,22 @@ def update(ip, time, temp):
 def info():
     with open("hosts.json", "r") as __json_fileR:
         __host_file = json.load(__json_fileR)
+        # print(json.dumps(__host_file, indent=4))
         info = []
         for host in __host_file:
             info.append((__host_file[host]["hostname"], __host_file[host]["temperature"], __host_file[host]["last report"]))
     return info
+
     
+def getTempAvg():
+    with open("hosts.json", "r") as __json_fileR:
+        __host_file = json.load(__json_fileR)
+        temp = 0
+        count = 0
+        for host in __host_file:
+            temp += __host_file[host]["temperature"] 
+            count += 1
+        if count is not 0:
+            return int(temp / count)
+        else: 
+            return 0
